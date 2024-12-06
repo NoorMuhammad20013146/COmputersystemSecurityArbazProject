@@ -1,0 +1,59 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-toolbar color="primary">Online Users</mat-toolbar>
+      <mat-list>
+        <mat-list-item *ngFor="let user of filteredUsers" (click)="selectUser(user)">
+          <mat-icon style="vertical-align: bottom; margin-right: 5px;" aria-hidden="false" fontIcon="person"></mat-icon>
+          <span mat-line>{{ user }}</span>
+        </mat-list-item>
+      </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <div class="no-chat" *ngIf="selectedUser == null">
+      <img src="../../../../assets/chat.png">
+      <h1>Welcome to Texter</h1>
+      <p>
+        <mat-icon style="vertical-align: bottom;margin-right: 3px;" aria-hidden="false" aria-label="Example home icon" fontIcon="lock"></mat-icon>
+        <span>End-to-end Encrypted</span>
+      </p>
+    </div>
+    <div *ngIf="selectedUser != null">
+      <mat-toolbar color="primary">Chat</mat-toolbar>
+      <div class="chat-window">
+        <mat-card *ngFor="let message of selectedMessages" class="chat-message">
+          <mat-card-content>
+            <p><strong>{{ message.sender }}:</strong> {{ message.message }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="chat-input-container">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Type your message" [(ngModel)]="message">
+          <button mat-raised-button color="primary" (click)="sendMessage()">Send</button>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- <div class="chat-container">
+  <div class="user-list">
+    <mat-label>Search users</mat-label>
+    <input type="text" matInput [(ngModel)]="searchQuery" (input)="searchUsers()" placeholder="Search users..." />
+    <ul>
+      <li *ngFor="let user of filteredUsers" (click)="selectUser(user)">
+        {{ user }}
+      </li>
+    </ul>
+  </div>
+  <div class="chat-box">
+    <h2 *ngIf="selectedUser">Chat with {{ selectedUser }}</h2>
+    <div class="messages">
+      <div *ngFor="let msg of messages">{{ msg.message }}</div>
+    </div>
+    <input [(ngModel)]="message" placeholder="Type a message..." />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div> -->
